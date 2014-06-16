@@ -1,5 +1,6 @@
+package com.echec.core;
 
-public enum color {
+public enum Couleur {
 	
 	blanc,
 	noir;
