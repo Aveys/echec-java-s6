@@ -54,12 +54,12 @@ public abstract class Piece {
 	}
 
 
-	//teste la validité de 2 coordonnées
+	//teste la validitï¿½ de 2 coordonnï¿½es
 	/**
 	 * 
-	 * @param x coordonée x sur l'échiquier
-	 * @param y coordonée y sur l'échiquier
-	 * @return TRUE si la coordonée est valide (existe sur l'échiquier de 8x8)
+	 * @param x coordonÃ©e x sur l'Ã©chiquier
+	 * @param y coordonÃ©e y sur l'Ã©chiquier
+	 * @return TRUE si la coordonï¿½e est valide (existe sur l'ï¿½chiquier de 8x8)
 	 */
 	public static boolean CoordIsValid(int x, int y){
 		
@@ -76,12 +76,12 @@ public abstract class Piece {
 		
 	}
 	
-	//methode abstraite vérifiant si le déplacement est possible pour la pièce
+	//methode abstraite vï¿½rifiant si le dï¿½placement est possible pour la piï¿½ce
 	/**
 	 * 
-	 * @param x coordonnée d'arrivée x sur l'échiquier
-	 * @param y coordonnée d'arrivée y sur l'échiquier 
-	 * @return TRUE si le dépalcement de la pièce vers la case x,y est possible 
+	 * @param x coordonnÃ©e d'arrivÃ©e x sur l'Ã©chiquier
+	 * @param y coordonnÃ©e d'arrivÃ©e y sur l'Ã©chiquier
+	 * @return TRUE si le dÃ©palcement de la piÃ©ce vers la case x,y est possible
 	 */
 	public abstract boolean DepIsValid(int x, int y);
 }
