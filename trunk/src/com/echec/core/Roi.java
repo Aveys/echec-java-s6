@@ -2,9 +2,19 @@ package com.echec.core;
 
 public class Roi extends Piece{
 	
-	int moves = 0;
+	private int moves = 0;
 	
 	
+	public int getMoves() {
+		return moves;
+	}
+
+
+	public void setMoves(int moves) {
+		this.moves = moves;
+	}
+
+
 	public Roi(int x, int y) {
 		
 		super(x, y, TypePiece.roi);

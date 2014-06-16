@@ -2,8 +2,16 @@ package com.echec.core;
 
 public class Tour extends Piece{
 
-	int moves = 0;
+	private int moves = 0;
 	
+	public int getMoves() {
+		return moves;
+	}
+
+	public void setMoves(int moves) {
+		this.moves = moves;
+	}
+
 	public Tour(int x, int y) {
 		
 		super(x, y, TypePiece.tour);
