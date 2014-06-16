@@ -7,6 +7,8 @@ public abstract class Piece {
 	
 	int x;
 	int y;
+	color color;
+	
 	
 	
 	
