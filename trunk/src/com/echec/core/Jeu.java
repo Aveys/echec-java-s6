@@ -67,13 +67,14 @@ public class Jeu {
      * @return false if one or several piece are not initialised
      */
     public boolean isAllValid(){
+        boolean valid = true
         if (lstpiece.isEmpty())
-                return false;
+                valid=false;
         for(Piece p : lstpiece){
             if (p == null)
-                return false;
+                valid=false;
         }
-        return true;
+        return valid;
     }
 
     /**
@@ -85,11 +86,17 @@ public class Jeu {
     public Piece getPiece(int x,int y){
         if(lstpiece.isEmpty())
             return null;
-        for(Piece p : lstpiece){
-            if(p.getX() == x && p.getY()==y)
-                return p;
+        else {
+            Piece trouve=null;
+            for (Piece p : lstpiece) {
+                if (p.getX() == x && p.getY() == y)
+                   trouve=p;
+            }
+           if (trouve!=null)
+               return trouve;
+           else
+               return null;
         }
-        return null;
     }
 
     /**
