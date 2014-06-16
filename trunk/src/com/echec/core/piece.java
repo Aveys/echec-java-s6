@@ -14,11 +14,11 @@ public abstract class Piece {
 	
 	//constructeur
 	public Piece(int x, int y, TypePiece type) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.type = type;
-		
+		if(CoordIsValid(x, y)){
+			this.x = x;
+			this.y = y;
+			this.type = type;
+		}
 	}
 
 	public int getX() {
