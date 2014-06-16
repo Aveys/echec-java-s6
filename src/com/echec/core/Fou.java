@@ -1,10 +1,10 @@
 package com.echec.core;
 
-public class Tour extends Piece{
 
-	public Tour(int x, int y) {
-		
-		super(x, y, TypePiece.tour);
+public class Fou extends Piece{
+
+	public Fou(int x, int y) {
+		super(x, y, TypePiece.fou);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -14,19 +14,18 @@ public class Tour extends Piece{
 		
 		//vérification des coordonnées cibles
 		if(CoordIsValid(x, y)){
-			
+					
 			//récupération des coordonnées de la pièce
 			int x_dep = this.getX();
 			int y_dep = this.getY();
 			
-			//si le déplacement est seulement vertical ou horizontal
-			if( ((x_dep-x)==0)||((y_dep-y)==0) ){
+			//si le déplacement est uniquement en diagonal
+			if(java.lang.Math.abs((x_dep-x)) == java.lang.Math.abs(y_dep-y)){
 				
 				//le déplacement est possible
 				return true;
 			}
 		}
-		
 		//le déplacement est impossible
 		return false;
 	}
