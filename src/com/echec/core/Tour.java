@@ -1,14 +1,13 @@
 package com.echec.core;
 
-public class Roi extends Piece{
+public class Tour extends Piece{
 
-	public Roi(int x, int y) {
+	public Tour(int x, int y, TypePiece type) {
 		
-		super(x, y, TypePiece.roi);
+		super(x, y, TypePiece.tour);
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	@Override
 	public boolean DepIsValid(int x, int y) {
 		// TODO Auto-generated method stub
@@ -20,18 +19,15 @@ public class Roi extends Piece{
 			int x_dep = this.getX();
 			int y_dep = this.getY();
 			
-			//si les coordonnées cibles sont à 1 case d'écart avec les coordonnées de départ
-			if( (x >= (x_dep-1)) && (x <= (x_dep+1)) ){
+			//si le déplacement est seulement vertical ou horizontal
+			if( ((x_dep-x)==0)||((y_dep-y)==0) ){
 				
-				if((y >= (y_dep-1)) && (y <= (y_dep+1))){
-					
-					//le déplacement est possible
-					return true;
-				}
+				//le déplacement est possible
+				return true;
 			}
 		}
 		
-		//le déplacement n'est pas possible
+		//le déplacement est impossible
 		return false;
 	}
 
