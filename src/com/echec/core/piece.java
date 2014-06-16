@@ -71,5 +71,5 @@ public abstract class Piece {
 	}
 	
 	//methode abstraite vérifiant si le déplacement est possible
-	public abstract boolean DepIsValid();
+	public abstract boolean DepIsValid(int x, int y);
 }
