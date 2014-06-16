@@ -1,7 +1,10 @@
 package com.echec.core;
 
 public class Roi extends Piece{
-
+	
+	int moves = 0;
+	
+	
 	public Roi(int x, int y) {
 		
 		super(x, y, TypePiece.roi);
@@ -30,6 +33,12 @@ public class Roi extends Piece{
 					//le déplacement est possible
 					valid = true;
 				}
+			}
+			//cas du roque (déplacement horizontal long autorisé)
+			else if(java.lang.Math.abs(y_dep-y)==0){
+				
+				//le déplacement est possible
+				valid = true;
 			}
 		}
 		

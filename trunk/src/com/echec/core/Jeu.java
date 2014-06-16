@@ -67,7 +67,7 @@ public class Jeu {
      * @return false if one or several piece are not initialised
      */
     public boolean isAllValid(){
-        boolean valid = true
+        boolean valid = true;
         if (lstpiece.isEmpty())
                 valid=false;
         for(Piece p : lstpiece){
