@@ -1,0 +1,59 @@
+package com.echec.core;
+
+public class Roi extends Piece{
+	
+	private int moves = 0;
+	
+	
+	public int getMoves() {
+		return moves;
+	}
+
+
+	public void setMoves(int moves) {
+		this.moves = moves;
+	}
+
+
+	public Roi(int x, int y) {
+		
+		super(x, y, TypePiece.roi);
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	@Override
+	public boolean DepIsValid(int x, int y) {
+		// TODO Auto-generated method stub
+		
+		boolean valid = false;
+		
+		//vérification des coordonnées cibles
+		if(CoordIsValid(x, y)){
+			
+			//récupération des coordonnées de la pièce
+			int x_dep = this.getX();
+			int y_dep = this.getY();
+			
+			//si les coordonnées cibles sont à 1 case d'écart avec les coordonnées de départ
+			if( (x >= (x_dep-1)) && (x <= (x_dep+1)) ){
+				
+				if((y >= (y_dep-1)) && (y <= (y_dep+1))){
+					
+					//le déplacement est possible
+					valid = true;
+				}
+			}
+			//cas du roque (déplacement horizontal long autorisé)
+			else if(java.lang.Math.abs(y_dep-y)==0){
+				
+				//le déplacement est possible
+				valid = true;
+			}
+		}
+		
+		//le déplacement n'est pas possible
+		return valid;
+	}
+
+}
