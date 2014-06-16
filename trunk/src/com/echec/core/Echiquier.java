@@ -38,4 +38,12 @@ public class Echiquier  {
     public void setCurrentUser(int currentUser) {
         this.currentUser = currentUser;
     }
+
+    public Piece getPiece(int x, int y){
+        Piece tmp=null;
+        tmp=jeuBlanc.getPiece(x,y);
+        if (tmp==null)
+            tmp=jeuNoir.getPiece(x,y);
+        return tmp;
+    }
 }
