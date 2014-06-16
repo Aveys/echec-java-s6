@@ -1,5 +1,6 @@
+package com.echec.core;
 
-public enum type_piece {
+public enum TypePiece {
 	
 	pion,
 	cavalier,
