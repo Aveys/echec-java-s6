@@ -12,6 +12,8 @@ public class Fou extends Piece{
 	public boolean DepIsValid(int x, int y) {
 		// TODO Auto-generated method stub
 		
+		boolean valid = false;
+		
 		//vérification des coordonnées cibles
 		if(CoordIsValid(x, y)){
 					
@@ -23,11 +25,11 @@ public class Fou extends Piece{
 			if(java.lang.Math.abs((x_dep-x)) == java.lang.Math.abs(y_dep-y)){
 				
 				//le déplacement est possible
-				return true;
+				valid= true;
 			}
 		}
 		//le déplacement est impossible
-		return false;
+		return valid;
 	}
 
 }
