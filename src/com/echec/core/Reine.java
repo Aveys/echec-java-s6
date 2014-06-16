@@ -11,6 +11,8 @@ public class Reine extends Piece{
 	public boolean DepIsValid(int x, int y) {
 		// TODO Auto-generated method stub
 		
+		boolean valid = false;
+		
 		//vérification des coordonnées cibles
 		if(CoordIsValid(x, y)){
 					
@@ -22,11 +24,11 @@ public class Reine extends Piece{
 			if( ((x_dep-x)==0)||((y_dep-y)==0) || java.lang.Math.abs((x_dep-x)) == java.lang.Math.abs(y_dep-y) ){
 						
 				//le déplacement est possible
-				return true;
+				valid= true;
 			}
 		}
 		//le déplacement est impossible
-		return false;
+		return valid;
 	}
 
 }

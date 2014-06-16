@@ -13,6 +13,8 @@ public class Roi extends Piece{
 	public boolean DepIsValid(int x, int y) {
 		// TODO Auto-generated method stub
 		
+		boolean valid = false;
+		
 		//vérification des coordonnées cibles
 		if(CoordIsValid(x, y)){
 			
@@ -26,13 +28,13 @@ public class Roi extends Piece{
 				if((y >= (y_dep-1)) && (y <= (y_dep+1))){
 					
 					//le déplacement est possible
-					return true;
+					valid = true;
 				}
 			}
 		}
 		
 		//le déplacement n'est pas possible
-		return false;
+		return valid;
 	}
 
 }
