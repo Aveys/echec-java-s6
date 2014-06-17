@@ -22,36 +22,39 @@ public class Jeu {
         this.color=c;
         this.init();
     }
+    public boolean Jouer()throws NotImplementedException{
+        return false;
+    }
 
     /**
      * Initilize the game
      */
     private void init(){
         if(this.color==Couleur.noir) {
-            for (int i = 0; i != 7; i++) {
-                lstpiece.add(new Pion(i,6 ));
+            for (int i = 0; i != 8; i++) {
+                lstpiece.add(new Pion(i,6,Couleur.noir ));
             }
-            lstpiece.add(new Tour(0,7));
-            lstpiece.add(new Cavalier(1,7));
-            lstpiece.add(new Fou(2,7));
-            lstpiece.add(new Roi(3,7));
-            lstpiece.add(new Reine(4,7));
-            lstpiece.add(new Fou(5,7));
-            lstpiece.add(new Cavalier(6,7));
-            lstpiece.add(new Tour(7,7));
+            lstpiece.add(new Tour(0,7,Couleur.noir));
+            lstpiece.add(new Cavalier(1,7,Couleur.noir));
+            lstpiece.add(new Fou(2,7,Couleur.noir));
+            lstpiece.add(new Roi(3,7,Couleur.noir));
+            lstpiece.add(new Reine(4,7,Couleur.noir));
+            lstpiece.add(new Fou(5,7,Couleur.noir));
+            lstpiece.add(new Cavalier(6,7,Couleur.noir));
+            lstpiece.add(new Tour(7,7,Couleur.noir));
         }
         else{
-            for (int i = 0; i != 7; i++) {
-                lstpiece.add(new Pion(i,1 ));
+            for (int i = 0; i != 8; i++) {
+                lstpiece.add(new Pion(i,1,Couleur.blanc ));
             }
-            lstpiece.add(new Tour(0,0));
-            lstpiece.add(new Cavalier(1,0));
-            lstpiece.add(new Fou(2,0));
-            lstpiece.add(new Roi(3,0));
-            lstpiece.add(new Reine(4,0));
-            lstpiece.add(new Fou(5,0));
-            lstpiece.add(new Cavalier(6,0));
-            lstpiece.add(new Tour(7,0));
+            lstpiece.add(new Tour(0,0,Couleur.blanc));
+            lstpiece.add(new Cavalier(1,0,Couleur.blanc));
+            lstpiece.add(new Fou(2,0,Couleur.blanc));
+            lstpiece.add(new Roi(3,0,Couleur.blanc));
+            lstpiece.add(new Reine(4,0,Couleur.blanc));
+            lstpiece.add(new Fou(5,0,Couleur.blanc));
+            lstpiece.add(new Cavalier(6,0,Couleur.blanc));
+            lstpiece.add(new Tour(7,0,Couleur.blanc));
         }
     }
 

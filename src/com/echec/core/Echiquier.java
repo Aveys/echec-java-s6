@@ -46,11 +46,17 @@ public class Echiquier  {
             tmp=jeuNoir.getPiece(x,y);
         return tmp;
     }
-    public String afficherEchiquier(){
-        for (int i = 0; i !=7; i++) {
+    public void afficherEchiquier(){
+        Piece tmp;
+        for (int i = 0; i !=8; i++) {
             for (int j = 0; j!=8; j++) {
-                System.out.print();
+                tmp=this.getPiece(j,i);
+                if(tmp==null)
+                    System.out.print("X |");
+                else
+                    System.out.print(tmp.toString()+" |");
             }
+            System.out.print("\n");
         }
     }
 }

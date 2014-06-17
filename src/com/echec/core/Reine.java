@@ -2,8 +2,8 @@ package com.echec.core;
 
 public class Reine extends Piece{
 
-	public Reine(int x, int y) {
-		super(x, y, TypePiece.reine);
+	public Reine(int x, int y,Couleur c) {
+		super(x, y, TypePiece.reine,c);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -13,21 +13,21 @@ public class Reine extends Piece{
 		
 		boolean valid = false;
 		
-		//vérification des coordonnées cibles
+		//vï¿½rification des coordonnï¿½es cibles
 		if(CoordIsValid(x, y)){
 					
-			//récupération des coordonnées de la pièce
+			//rï¿½cupï¿½ration des coordonnï¿½es de la piï¿½ce
 			int x_dep = this.getX();
 			int y_dep = this.getY();
 					
-			//si le déplacement est horizontal ou vertical ou en diagonale
+			//si le dï¿½placement est horizontal ou vertical ou en diagonale
 			if( ((x_dep-x)==0)||((y_dep-y)==0) || java.lang.Math.abs((x_dep-x)) == java.lang.Math.abs(y_dep-y) ){
 						
-				//le déplacement est possible
+				//le dï¿½placement est possible
 				valid= true;
 			}
 		}
-		//le déplacement est impossible
+		//le dï¿½placement est impossible
 		return valid;
 	}
 
