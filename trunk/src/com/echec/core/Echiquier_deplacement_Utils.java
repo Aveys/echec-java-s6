@@ -1,5 +1,7 @@
 package com.echec.core;
 
+import java.util.ArrayList;
+
 /**
  * Created by arthurveys on 16/06/2014.
  */
@@ -42,7 +44,9 @@ public class Echiquier_deplacement_Utils {
 			//test de type de pièce
 			TypePiece Type_pe=pe.getType();
 			
-			//si la pièce est une reine, ou un fou
+			
+			//1.
+			//si la pièce est une reine, ou un fou ou tour
 			if(Type_pe == (TypePiece.fou) || Type_pe == (TypePiece.reine) || Type_pe==(TypePiece.tour)){
 				
 				//vérification si la case libre
@@ -73,7 +77,7 @@ public class Echiquier_deplacement_Utils {
 					
 				}
 			}
-			
+			//2.
 			//si la pièce est un cavalier
 			else if(Type_pe == (TypePiece.cavalier)){
 				
@@ -105,37 +109,62 @@ public class Echiquier_deplacement_Utils {
 					
 				}
 			}
+			//3.
 			//si la pièce est un roi
 			else if(Type_pe == (TypePiece.roi)){
 				
-				//vérification si la case libre
-				if(checkIsFree(ec, x, y)){
+				//variable pour savoir si le roi est en echec sur le prochain deplacmeent
+				boolean echec = false;
+				Jeu jeu_adverse;
+				
+				//vérifier si mise en echec
+				//on identifie le jeu adversaire
+				if(pe.getColor()==Couleur.noir){
+					jeu_adverse = ec.getJeuBlanc();
+				}
+				else{							
+					jeu_adverse = ec.getJeuNoir();
+				}
+				
+				//pour chaque piece du jeu adverse, on verifie si il peut mettre en echec le roi
+				for(Piece p : jeu_adverse.lstpiece){
 					
-					//déplacement de la pièce
-					effectiveMovement(pe, x, y);
-					move = true;
-					
-				}else{
-					
-					//récupération de la piece sur la case cible
-					Piece piece_cible = ec.getPiece(x, y);
-					
-					//si la couleur de la pièce cible est différente de la pièce qui bouge
-					if(pe.getColor() != piece_cible.getColor()){
-						
-						//mouvement possible + déplacement de la pièce + kill de la pièce cible
-						move = true;
-						if(piece_cible.getColor()==Couleur.blanc){
-							ec.getJeuBlanc().killPiece(piece_cible);
-						}
-						else{							
-							ec.getJeuNoir().killPiece(piece_cible);
-						}
-						effectiveMovement(pe, x, y);
+					if(Move(p, ec, x, y)){
+						//on met à jour la variable echec
+						echec = true;
 					}
-					
+				}
+				
+				if(!echec){
+					//vérification si la case libre
+					if(checkIsFree(ec, x, y)){
+						
+						//déplacement de la pièce
+						effectiveMovement(pe, x, y);
+						move = true;
+						
+					}else{
+						
+						//récupération de la piece sur la case cible
+						Piece piece_cible = ec.getPiece(x, y);
+						
+						//si la couleur de la pièce cible est différente de la pièce qui bouge
+						if(pe.getColor() != piece_cible.getColor()){
+							
+							//mouvement possible + déplacement de la pièce + kill de la pièce cible
+							move = true;
+							if(piece_cible.getColor()==Couleur.blanc){
+								ec.getJeuBlanc().killPiece(piece_cible);
+							}
+							else{							
+								ec.getJeuNoir().killPiece(piece_cible);
+							}
+							effectiveMovement(pe, x, y);
+						}	
+					}
 				}
 			}
+			//4.
 			//si la pièce est un pion
 			else if(Type_pe == (TypePiece.pion)){
 				
