@@ -31,7 +31,6 @@ public class Pion extends Piece{
 			
 			//si le d�placement est en avnt et de 1 a 2 cases maxi
 			if((y-y_dep<=2) && (y-y_dep>0) && (java.lang.Math.abs(x-x_dep) == 0) ){
-				
 				//le d�placement est possible
 				valid= true;
 			}

@@ -10,9 +10,15 @@ public abstract class Piece {
 	private int y;
 	private Couleur color;
 	private TypePiece type;
-	
-	
-	//constructeur
+
+
+    /**
+     * Build a piece
+     * @param x X coodinate of the piece
+     * @param y Y coordinate of the piece
+     * @param type the type of the piece
+     * @param c the color of the piece
+     */
 	public Piece(int x, int y, TypePiece type,Couleur c) {
 		if(CoordIsValid(x, y)){
 			this.x = x;
@@ -87,8 +93,12 @@ public abstract class Piece {
 	 */
 	public abstract boolean DepIsValid(int x, int y);
 
+    /**
+     * Display information of the piece
+     * @return String of informations
+     */
     @Override
     public String toString() {
-        return type+" "+color;
+        return color.toString().toUpperCase().substring(0,1)+"_"+type.toString().substring(0,1);
     }
 }
