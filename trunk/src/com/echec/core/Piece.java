@@ -13,13 +13,15 @@ public abstract class Piece {
 	
 	
 	//constructeur
-	public Piece(int x, int y, TypePiece type) {
+	public Piece(int x, int y, TypePiece type,Couleur c) {
 		if(CoordIsValid(x, y)){
 			this.x = x;
 			this.y = y;
 			this.type = type;
+            this.color=c;
 		}
 	}
+
 
 	public int getX() {
 		return x;
@@ -84,4 +86,9 @@ public abstract class Piece {
 	 * @return TRUE si le dépalcement de la piéce vers la case x,y est possible
 	 */
 	public abstract boolean DepIsValid(int x, int y);
+
+    @Override
+    public String toString() {
+        return type+" "+color;
+    }
 }

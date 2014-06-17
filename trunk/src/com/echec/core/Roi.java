@@ -15,9 +15,9 @@ public class Roi extends Piece{
 	}
 
 
-	public Roi(int x, int y) {
+	public Roi(int x, int y,Couleur c) {
 		
-		super(x, y, TypePiece.roi);
+		super(x, y, TypePiece.roi,c);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -28,31 +28,31 @@ public class Roi extends Piece{
 		
 		boolean valid = false;
 		
-		//vérification des coordonnées cibles
+		//vï¿½rification des coordonnï¿½es cibles
 		if(CoordIsValid(x, y)){
 			
-			//récupération des coordonnées de la pièce
+			//rï¿½cupï¿½ration des coordonnï¿½es de la piï¿½ce
 			int x_dep = this.getX();
 			int y_dep = this.getY();
 			
-			//si les coordonnées cibles sont à 1 case d'écart avec les coordonnées de départ
+			//si les coordonnï¿½es cibles sont ï¿½ 1 case d'ï¿½cart avec les coordonnï¿½es de dï¿½part
 			if( (x >= (x_dep-1)) && (x <= (x_dep+1)) ){
 				
 				if((y >= (y_dep-1)) && (y <= (y_dep+1))){
 					
-					//le déplacement est possible
+					//le dï¿½placement est possible
 					valid = true;
 				}
 			}
-			//cas du roque (déplacement horizontal long autorisé)
+			//cas du roque (dï¿½placement horizontal long autorisï¿½)
 			else if(java.lang.Math.abs(y_dep-y)==0){
 				
-				//le déplacement est possible
+				//le dï¿½placement est possible
 				valid = true;
 			}
 		}
 		
-		//le déplacement n'est pas possible
+		//le dï¿½placement n'est pas possible
 		return valid;
 	}
 
