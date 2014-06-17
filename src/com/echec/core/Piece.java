@@ -10,6 +10,7 @@ public abstract class Piece {
 	private int y;
 	private Couleur color;
 	private TypePiece type;
+    public String name;
 
 
     /**
@@ -19,12 +20,13 @@ public abstract class Piece {
      * @param type the type of the piece
      * @param c the color of the piece
      */
-	public Piece(int x, int y, TypePiece type,Couleur c) {
+	public Piece(int x, int y, TypePiece type,Couleur c,String name) {
 		if(CoordIsValid(x, y)){
 			this.x = x;
 			this.y = y;
 			this.type = type;
             this.color=c;
+            this.name=name;
 		}
 	}
 
@@ -99,6 +101,6 @@ public abstract class Piece {
      */
     @Override
     public String toString() {
-        return color.toString().toUpperCase().substring(0,1)+"_"+type.toString().substring(0,1);
+        return color.toString().toUpperCase().substring(0,1)+"_"+name;
     }
 }

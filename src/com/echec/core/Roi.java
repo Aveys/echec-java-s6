@@ -13,9 +13,9 @@ public class Roi extends Piece{
 	
 
 
-	public Roi(int x, int y,Couleur c) {
+	public Roi(int x, int y,Couleur c,String name) {
 		
-		super(x, y, TypePiece.roi,c);
+		super(x, y, TypePiece.roi,c,name);
 		// TODO Auto-generated constructor stub
 	}
 

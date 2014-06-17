@@ -2,8 +2,8 @@ package com.echec.core;
 
 public class Reine extends Piece{
 
-	public Reine(int x, int y,Couleur c) {
-		super(x, y, TypePiece.reine,c);
+	public Reine(int x, int y,Couleur c,String name) {
+		super(x, y, TypePiece.reine,c,name);
 		// TODO Auto-generated constructor stub
 	}
 
