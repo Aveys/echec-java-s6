@@ -17,11 +17,11 @@ public class Echiquier_deplacement_Utils {
 	}
 	
 	/**
-     * Check
-     * @param ec
-     * @param x
-     * @param y
-     * @return
+     * Check is the place is free
+     * @param ec the chessboard to check
+     * @param x the X coordinate to check
+     * @param y the Y coordinate to check
+     * @return true if free, false otherwise
      */
     public static boolean checkIsFree(Echiquier ec, int x,int y){
         Piece tmp=ec.getPiece(x,y);

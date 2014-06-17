@@ -54,4 +54,8 @@ public class Roi extends Piece{
 		return valid;
 	}
 
+    @Override
+    public String toString() {
+            return this.getColor().toString().toUpperCase().substring(0,1)+"_Ro";
+    }
 }
