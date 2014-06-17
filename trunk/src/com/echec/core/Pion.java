@@ -32,17 +32,31 @@ public class Pion extends Piece{
 			int x_dep = this.getX();
 			int y_dep = this.getY();
 			
-			//si le d�placement est en avnt et de 1 a 2 cases maxi
-			if((y-y_dep<=2) && (y-y_dep>0) && (java.lang.Math.abs(x-x_dep) == 0) ){
+			//si le d�placement est en avnt et de 1 a 2 cases maxi (pour les blancs)
+			
+			if((y-y_dep<=2) && (y-y_dep>0) && (java.lang.Math.abs(x-x_dep) == 0) && (this.getColor() == Couleur.blanc)){
 				//le d�placement est possible
 				valid= true;
 			}
-			//si le deplacement est d'une case en diagonale et en avant
-			else if(y-y_dep==1 && (java.lang.Math.abs(x-x_dep) == 1)){
+			//si le deplacement est d'une case en diagonale et en avant (pour les blancs)
+			else if(y-y_dep==1 && (java.lang.Math.abs(x-x_dep) == 1)&&(this.getColor() == Couleur.blanc)){
 				
 				//le d�placement est possible
 				valid= true;
 			}
+			//si le d�placement est en avnt et de 1 a 2 cases maxi (pour les noirs)
+			
+			if((y_dep-y<=2) && (y_dep-y>0) && (java.lang.Math.abs(x-x_dep) == 0) && (this.getColor() == Couleur.noir)){
+				//le d�placement est possible
+				valid= true;
+			}
+			//si le deplacement est d'une case en diagonale et en avant (pour les noirs)
+			else if(y-y_dep==-1 && (java.lang.Math.abs(x-x_dep) == 1)&&(this.getColor() == Couleur.noir)){
+				
+				//le d�placement est possible
+				valid= true;
+			}
+			
 		}
 		//le d�placement est impossible
 		return valid;
