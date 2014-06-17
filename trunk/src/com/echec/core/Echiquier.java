@@ -39,6 +39,12 @@ public class Echiquier  {
         this.currentUser = currentUser;
     }
 
+    /**
+     * get a piece on precise coordinates (in the two players)
+     * @param x X coordinate to get
+     * @param y Y coordinate to get
+     * @return null if no piece found on the coodinates or the piece if found
+     */
     public Piece getPiece(int x, int y){
         Piece tmp=null;
         tmp=jeuBlanc.getPiece(x,y);
@@ -46,6 +52,10 @@ public class Echiquier  {
             tmp=jeuNoir.getPiece(x,y);
         return tmp;
     }
+
+    /**
+     * Display the whole chessboard
+     */
     public void afficherEchiquier(){
         Piece tmp;
         for (int i = 0; i !=8; i++) {
