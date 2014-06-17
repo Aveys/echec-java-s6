@@ -13,6 +13,7 @@ public class Echiquier  {
         this.jeuBlanc=new Jeu(Couleur.blanc);
         this.jeuNoir=new Jeu(Couleur.noir);
         this.currentUser=0;
+        this.startGame();
     }
 
     public Jeu getJeuBlanc() {
@@ -58,15 +59,30 @@ public class Echiquier  {
      */
     public void afficherEchiquier(){
         Piece tmp;
-        for (int i = 0; i !=8; i++) {
-            for (int j = 0; j!=8; j++) {
+        for (int i = 7; i >=0; i--) {
+            for (int j = 7; j>=0; j--) {
                 tmp=this.getPiece(j,i);
                 if(tmp==null)
                     System.out.print("X |");
                 else
-                    System.out.print(tmp.toString()+" |");
+                    System.out.print(tmp.toString()+"("+j+","+i+") |");
             }
             System.out.print("\n");
+        }
+        System.out.print("\n");
+    }
+    public void startGame(){
+        boolean res=true;
+        while(res==true){
+            this.afficherEchiquier();
+            if (currentUser==0){
+                res=jeuNoir.jouer(this);
+                currentUser++;
+            }
+            else{
+                res=jeuBlanc.jouer(this);
+                currentUser--;
+            }
         }
     }
 }

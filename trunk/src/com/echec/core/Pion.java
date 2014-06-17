@@ -15,8 +15,8 @@ public class Pion extends Piece{
 
 
 
-	public Pion(int x, int y,Couleur c) {
-		super(x, y, TypePiece.pion,c);
+	public Pion(int x, int y,Couleur c,String name) {
+		super(x, y, TypePiece.pion,c,name);
 		// TODO Auto-generated constructor stub
 	}
 

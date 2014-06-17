@@ -2,8 +2,8 @@ package com.echec.core;
 
 public class Cavalier extends Piece{
 
-	public Cavalier(int x, int y,Couleur c) {
-		super(x, y, TypePiece.cavalier,c);
+	public Cavalier(int x, int y,Couleur c,String name) {
+		super(x, y, TypePiece.cavalier,c,name);
 		// TODO Auto-generated constructor stub
 	}
 

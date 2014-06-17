@@ -1,6 +1,8 @@
 package com.echec.core;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -22,39 +24,131 @@ public class Jeu {
         this.color=c;
         this.init();
     }
-    public boolean Jouer()throws NotImplementedException{
+    public boolean jouer(Echiquier ec) {
+        boolean execution=false;
+        String inputValue = "";
+        String valueTofind = ",";
+        System.out.println("C'est au tour du joueur "+color);
+        Piece source;
+        int xdest;
+        int ydest;
+
+        while(execution==false){
+            boolean exec_source=false;
+            do{
+                inputValue="";
+                while (inputValue != "quit" && !checkValue(inputValue)) {
+                    //affichage d'un curseur
+                    System.out.print("Piece à bouger>");
+                    //Création d'un flux de lecteur sur l'entrée standard System.in
+                    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+                    //Lecture bloquante de l'entrée standard, retour la valeur entrée par l'utilisateur
+                    try {
+                        inputValue = in.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                if (inputValue == "quit")
+                    return false;
+                else {
+                    String[] tmp = inputValue.split(",");
+                    source = getPiece(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]));
+                    System.out.println(source);
+                    if(source!=null)
+                        exec_source=true;
+                    else
+                        System.out.println("Cette piece n'existe pas");
+                }
+            }while(exec_source==false);
+            boolean exec_dest=false;
+            do {
+                inputValue="";
+                while (inputValue != "quit" && !checkValue(inputValue)) {
+                    //affichage d'un curseur
+                    System.out.print("Destination>");
+                    //Création d'un flux de lecteur sur l'entrée standard System.in
+                    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+                    //Lecture bloquante de l'entrée standard, retour la valeur entrée par l'utilisateur
+                    try {
+                        inputValue = in.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (inputValue == "quit")
+                    return false;
+                else {
+                    String[] tmp = inputValue.split(",");
+                    xdest = Integer.parseInt(tmp[0]);
+                    ydest = Integer.parseInt(tmp[1]);
+                    if(xdest>0 && ydest>0)
+                        exec_dest=true;
+                    else
+                        System.out.println("coordonnées invalides");
+                }
+            }while(exec_dest==false);
+            if (Echiquier_deplacement_Utils.Move(source, ec, xdest, ydest)) {
+                System.out.println("Mouvement validé !");
+                execution = true;
+            } else
+                System.out.println("Deplacement impossible");
+
+        }
+        return true;
+    }
+    /**
+     * Vérifie si l'entrée est correcte ou non
+     * @param inputValue valeur entrée par l'utilisateur
+     * @return true valeur trouvée, false non trouvée
+     */
+    private static boolean checkValue(String inputValue) {
+        try {
+            //le cast de la valeur string est indispensable pour la comparée à l'entier
+            if (inputValue.matches("^[1-8],[1-8]$")) {
+
+                return true;
+            }
+        } catch (Exception e) {
+            //si la valeur entrée par l'utilisateur n'est pas une entier exemple "12"
+            //retourne un message d'erreur
+            System.out.println("Valeur incorrecte (coordonnées de type X,X)");
+        }
         return false;
     }
 
     /**
-     * Initilize the game
+     * Initialize the game
      */
     private void init(){
         if(this.color==Couleur.noir) {
             for (int i = 0; i != 8; i++) {
-                lstpiece.add(new Pion(i,6,Couleur.noir ));
+                lstpiece.add(new Pion(i,6,Couleur.noir,"P"+i));
             }
-            lstpiece.add(new Tour(0,7,Couleur.noir));
-            lstpiece.add(new Cavalier(1,7,Couleur.noir));
-            lstpiece.add(new Fou(2,7,Couleur.noir));
-            lstpiece.add(new Roi(3,7,Couleur.noir));
-            lstpiece.add(new Reine(4,7,Couleur.noir));
-            lstpiece.add(new Fou(5,7,Couleur.noir));
-            lstpiece.add(new Cavalier(6,7,Couleur.noir));
-            lstpiece.add(new Tour(7,7,Couleur.noir));
+            lstpiece.add(new Tour(0,7,Couleur.noir,"T1"));
+            lstpiece.add(new Cavalier(1,7,Couleur.noir,"C1"));
+            lstpiece.add(new Fou(2,7,Couleur.noir,"F1"));
+            lstpiece.add(new Roi(3,7,Couleur.noir,"Ro"));
+            lstpiece.add(new Reine(4,7,Couleur.noir,"Re"));
+            lstpiece.add(new Fou(5,7,Couleur.noir,"F2"));
+            lstpiece.add(new Cavalier(6,7,Couleur.noir,"C2"));
+            lstpiece.add(new Tour(7,7,Couleur.noir,"T2"));
         }
         else{
             for (int i = 0; i != 8; i++) {
-                lstpiece.add(new Pion(i,1,Couleur.blanc ));
+                lstpiece.add(new Pion(i,1,Couleur.blanc,"P"+i ));
             }
-            lstpiece.add(new Tour(0,0,Couleur.blanc));
-            lstpiece.add(new Cavalier(1,0,Couleur.blanc));
-            lstpiece.add(new Fou(2,0,Couleur.blanc));
-            lstpiece.add(new Roi(3,0,Couleur.blanc));
-            lstpiece.add(new Reine(4,0,Couleur.blanc));
-            lstpiece.add(new Fou(5,0,Couleur.blanc));
-            lstpiece.add(new Cavalier(6,0,Couleur.blanc));
-            lstpiece.add(new Tour(7,0,Couleur.blanc));
+            lstpiece.add(new Tour(0,0,Couleur.blanc,"T1"));
+            lstpiece.add(new Cavalier(1,0,Couleur.blanc,"C1"));
+            lstpiece.add(new Fou(2,0,Couleur.blanc,"F1"));
+            lstpiece.add(new Roi(3,0,Couleur.blanc,"Ro"));
+            lstpiece.add(new Reine(4,0,Couleur.blanc,"Re"));
+            lstpiece.add(new Fou(5,0,Couleur.blanc,"F2"));
+            lstpiece.add(new Cavalier(6,0,Couleur.blanc,"C2"));
+            lstpiece.add(new Tour(7,0,Couleur.blanc,"T2"));
         }
     }
 
@@ -72,7 +166,7 @@ public class Jeu {
     public boolean isAllValid(){
         boolean valid = true;
         if (lstpiece.isEmpty())
-                valid=false;
+            valid=false;
         for(Piece p : lstpiece){
             if (p == null)
                 valid=false;
@@ -93,12 +187,12 @@ public class Jeu {
             Piece trouve=null;
             for (Piece p : lstpiece) {
                 if (p.getX() == x && p.getY() == y)
-                   trouve=p;
+                    trouve=p;
             }
-           if (trouve!=null)
-               return trouve;
-           else
-               return null;
+            if (trouve!=null)
+                return trouve;
+            else
+                return null;
         }
     }
 

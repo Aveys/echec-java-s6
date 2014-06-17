@@ -9,9 +9,9 @@ public class Tour extends Piece{
 	}
 
 	
-	public Tour(int x, int y,Couleur c) {
+	public Tour(int x, int y,Couleur c,String name) {
 		
-		super(x, y, TypePiece.tour,c);
+		super(x, y, TypePiece.tour,c,name);
 		// TODO Auto-generated constructor stub
 	}
 

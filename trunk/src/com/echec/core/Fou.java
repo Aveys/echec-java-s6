@@ -3,8 +3,8 @@ package com.echec.core;
 
 public class Fou extends Piece{
 
-	public Fou(int x, int y,Couleur c) {
-		super(x, y, TypePiece.fou,c);
+	public Fou(int x, int y,Couleur c,String name) {
+		super(x, y, TypePiece.fou,c,name);
 		// TODO Auto-generated constructor stub
 	}
 
