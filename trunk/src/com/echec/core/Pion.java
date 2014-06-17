@@ -4,9 +4,6 @@ public class Pion extends Piece{
 
 	private int moves = 0;
 	
-	public int getMoves() {
-		return moves;
-	}
 
 	public void setMoves(int moves) {
 		this.moves = moves;

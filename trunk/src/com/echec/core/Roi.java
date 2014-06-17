@@ -10,9 +10,7 @@ public class Roi extends Piece{
 	}
 
 
-	public void setMoves(int moves) {
-		this.moves = moves;
-	}
+	
 
 
 	public Roi(int x, int y,Couleur c) {

@@ -8,10 +8,7 @@ public class Tour extends Piece{
 		return moves;
 	}
 
-	public void setMoves(int moves) {
-		this.moves = moves;
-	}
-
+	
 	public Tour(int x, int y,Couleur c) {
 		
 		super(x, y, TypePiece.tour,c);
