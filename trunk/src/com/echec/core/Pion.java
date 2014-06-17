@@ -9,6 +9,12 @@ public class Pion extends Piece{
 		this.moves = moves;
 	}
 
+	public int getMoves() {
+		return moves;
+	}
+
+
+
 	public Pion(int x, int y,Couleur c) {
 		super(x, y, TypePiece.pion,c);
 		// TODO Auto-generated constructor stub
