@@ -8,7 +8,6 @@ public class Echiquier  {
     private Jeu jeuBlanc;
     private Jeu jeuNoir;
     private int currentUser;
-
     public Echiquier() {
         this.jeuBlanc=new Jeu(Couleur.blanc);
         this.jeuNoir=new Jeu(Couleur.noir);
@@ -57,24 +56,25 @@ public class Echiquier  {
     /**
      * Display the whole chessboard
      */
-    public void afficherEchiquier(){
+    public void afficherEchiquier() {
         Piece tmp;
-        for (int i = 7; i >=0; i--) {
-            for (int j = 7; j>=0; j--) {
-                tmp=this.getPiece(j,i);
-                if(tmp==null)
-                    System.out.print("X |");
+        for (int i = 7; i >= 0; i--) {
+            for (int j = 7; j >= 0; j--) {
+                tmp = getPiece(j, i);
+                if (tmp == null)
+                    System.out.print("X(" + j + "," + i + ") |");
                 else
-                    System.out.print(tmp.toString()+"("+j+","+i+") |");
+                    System.out.print(tmp.toString() + "(" + j + "," + i + ") |");
             }
             System.out.print("\n");
         }
         System.out.print("\n");
     }
+
     public void startGame(){
         boolean res=true;
         while(res==true){
-            this.afficherEchiquier();
+            afficherEchiquier();
             if (currentUser==0){
                 res=jeuNoir.jouer(this);
                 currentUser++;

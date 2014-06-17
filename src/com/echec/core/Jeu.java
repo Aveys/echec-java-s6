@@ -56,13 +56,14 @@ public class Jeu {
                 else {
                     String[] tmp = inputValue.split(",");
                     source = getPiece(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]));
-                    System.out.println(source);
+
                     if(source!=null)
                         exec_source=true;
                     else
                         System.out.println("Cette piece n'existe pas");
                 }
             }while(exec_source==false);
+            System.out.println("Piece séléctionnée :"+source);
             boolean exec_dest=false;
             do {
                 inputValue="";
@@ -124,7 +125,7 @@ public class Jeu {
      * Initialize the game
      */
     private void init(){
-        if(this.color==Couleur.noir) {
+        if(color==Couleur.noir) {
             for (int i = 0; i != 8; i++) {
                 lstpiece.add(new Pion(i,6,Couleur.noir,"P"+i));
             }
@@ -212,7 +213,7 @@ public class Jeu {
      * @return true if everything worked
      */
     public boolean killPiece(int x, int y){
-        return lstpiece.remove(this.getPiece(x,y));
+        return lstpiece.remove(getPiece(x,y));
     }
 
 }
