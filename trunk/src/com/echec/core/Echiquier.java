@@ -11,8 +11,7 @@ public class Echiquier  {
     public Echiquier() {
         this.jeuBlanc=new Jeu(Couleur.blanc);
         this.jeuNoir=new Jeu(Couleur.noir);
-        this.currentUser=0;
-        this.startGame();
+        this.currentUser=1; //1 -> joueur blanc, 0 -> joueur noir
     }
 
     public Jeu getJeuBlanc() {
