@@ -25,6 +25,15 @@ public class Jeu {
         this.color=c;
         this.init();
     }
+
+    /**
+     * do a chess mouvement
+     * @param source the piece source of the movement
+     * @param ec the chessboard
+     * @param xdest the x destination on grid
+     * @param ydest the y destination on grid
+     * @return true if the movement is accepted
+     */
     public boolean jouer(Piece source,Echiquier ec,int xdest,int ydest){
         boolean execution=false;
         if (Echiquier_deplacement_Utils.Move(source, ec, xdest, ydest)) {
@@ -34,6 +43,12 @@ public class Jeu {
             System.out.println("Deplacement impossible");
         return execution;
     }
+
+    /**
+     * Do a round by console (asked for coordinates)
+     * @param ec the chessboard
+     * @return true if the movement is accepted
+     */
     public boolean jouerConsole(Echiquier ec) {
         boolean execution=false;
         String inputValue;
@@ -42,7 +57,7 @@ public class Jeu {
         int xdest;
         int ydest;
 
-        while(!execution){
+        while(!execution){// recupére les coordonnées sources
             boolean exec_source=false;
             do{
                 inputValue="";
@@ -50,7 +65,7 @@ public class Jeu {
                     //affichage d'un curseur
                     System.out.print("Piece à bouger>");
                     //Création d'un flux de lecteur sur l'entrée standard System.in
-                    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+                    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));// lit directement dans l'entree
                     //Lecture bloquante de l'entrée standard, retour la valeur entrée par l'utilisateur
                     try {
                         inputValue = in.readLine();
@@ -101,7 +116,7 @@ public class Jeu {
                         System.out.println("coordonnées invalides");
                 }
             }while(!exec_dest);
-            if (Echiquier_deplacement_Utils.Move(source, ec, xdest, ydest)) {
+            if (Echiquier_deplacement_Utils.Move(source, ec, xdest, ydest)) {//effectue le mouvement effectif
                 System.out.println("Mouvement validé !");
                 execution = true;
             } else
@@ -131,7 +146,7 @@ public class Jeu {
     }
 
     /**
-     * Initialize the game
+     * Initialize the game (position of piece)
      */
     private void init(){
         if(color==Couleur.noir) {

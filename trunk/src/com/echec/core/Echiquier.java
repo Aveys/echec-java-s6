@@ -8,6 +8,10 @@ public class Echiquier  {
     private Jeu jeuBlanc;
     private Jeu jeuNoir;
     private int currentUser;
+
+    /**
+     * Construit un echiquier
+     */
     public Echiquier() {
         this.jeuBlanc=new Jeu(Couleur.blanc);
         this.jeuNoir=new Jeu(Couleur.noir);
@@ -69,6 +73,11 @@ public class Echiquier  {
         }
         System.out.print("\n");
     }
+
+    /**
+     * generate a 2-D string array of piece ("F1")
+     * @return the 2-D array
+     */
     public String[][] generateChessTab(){
         Piece tmp;
         String[][] res = new String[8][8];
@@ -90,12 +99,20 @@ public class Echiquier  {
         return res;
     }
 
+    /**
+     * Start the movement of the piece
+     * @param xsource the X source (grid reference)
+     * @param ysource the Y source (grid reference)
+     * @param xdest the X destination (grid reference)
+     * @param ydest the Y destination (grid reference)
+     * @return if the move is accepted
+     */
     public boolean startPlay(int xsource,int ysource,int xdest,int ydest){
-        afficherEchiquier();
+        afficherEchiquier();// affichage console
         System.out.println("Déplacement demandée : ("+xsource+","+ysource+") -> ("+xdest+","+ydest+")");
         boolean res;
-        Piece src = getPiece(xsource,ysource);
-        if (currentUser==0){
+        Piece src = getPiece(xsource,ysource);// recupére la piece source du mouvement
+        if (currentUser==0){// selection  selon le joueur courant
             res=jeuNoir.jouer(src,this,xdest,ydest);
             if(res) currentUser++;
         }
