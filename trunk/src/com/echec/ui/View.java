@@ -1,8 +1,11 @@
 package com.echec.ui;
 
-import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class View extends JFrame implements MouseListener, MouseMotionListener {
 
@@ -56,7 +59,6 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         setLocationRelativeTo(null);
         setVisible(true);
 
-
     }
     public void refreshviewPlateau(){
         plateau=control.getNewPlateau();
@@ -90,8 +92,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         Point parentLocation = c.getParent().getLocation();
         xAdjustment = parentLocation.x - e.getX();
         yAdjustment = parentLocation.y - e.getY();
-        xPressed=(600-e.getX())/(600/8);
-        yPressed=(600-e.getX())/(600/8);
+        xPressed=e.getX();
+        yPressed=e.getY();
         chessPiece = (JLabel)c;
         chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
         chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
@@ -108,22 +110,59 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     //Drop the chess piece back onto the chess board
 
     public void mouseReleased(MouseEvent e) {
-        if(chessPiece == null) return;
+        if(e.getX()>600 || e.getX()<0||e.getY()>600 || e.getY()<0){
+            if (chessPiece == null) return;
 
-        chessPiece.setVisible(false);
-        Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
+            chessPiece.setVisible(false);
+            Component c = chessBoard.findComponentAt(xPressed, yPressed);
 
-        if (c instanceof JLabel){
-            Container parent = c.getParent();
-            parent.remove(0);
-            parent.add( chessPiece );
+            if (c instanceof JLabel) {
+                Container parent = c.getParent();
+                parent.remove(0);
+                parent.add(chessPiece);
+            } else {
+                Container parent = (Container) c;
+                parent.add(chessPiece);
+            }
+
+            chessPiece.setVisible(true);
         }
         else {
-            Container parent = (Container)c;
-            parent.add( chessPiece );
-        }
+            if (control.move(xPressed,yPressed,e.getX(),e.getY())) {
+                if (chessPiece == null) return;
 
-        chessPiece.setVisible(true);
+                chessPiece.setVisible(false);
+                Component c = chessBoard.findComponentAt(e.getX(), e.getY());
+
+                if (c instanceof JLabel) {
+                    Container parent = c.getParent();
+                    parent.remove(0);
+                    parent.add(chessPiece);
+                } else {
+                    Container parent = (Container) c;
+                    parent.add(chessPiece);
+                }
+
+                chessPiece.setVisible(true);
+            }
+            else{
+                if (chessPiece == null) return;
+
+                chessPiece.setVisible(false);
+                Component c = chessBoard.findComponentAt(xPressed, yPressed);
+
+                if (c instanceof JLabel) {
+                    Container parent = c.getParent();
+                    parent.remove(0);
+                    parent.add(chessPiece);
+                } else {
+                    Container parent = (Container) c;
+                    parent.add(chessPiece);
+                }
+
+                chessPiece.setVisible(true);
+            }
+        }
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -167,4 +206,5 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         else
             return null;
     }
+
 }
