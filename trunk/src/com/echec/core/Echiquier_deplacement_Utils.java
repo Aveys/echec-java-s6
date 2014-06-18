@@ -31,12 +31,20 @@ public class Echiquier_deplacement_Utils {
             return false;
     }
 	
-	
+	/**
+	 * move a piece on the chessboard
+	 * @param pe the piece to move
+	 * @param ec the chessboard you play on
+	 * @param x the X coordinate where you want to move the piece
+	 * @param y the Y coordinate where you want to move the piece
+	 * @return true if the piece has moved, false otherwise
+	 */
 	public static boolean Move(Piece pe, Echiquier ec, int x, int y){
 		
+		//variable de retour
 		boolean move = false;
 		
-		//on vï¿½rifie que le mouvement est possible pour la piï¿½ce indï¿½pendemment du jeu
+		//on vérifie que la pièce selecetionnée soit de la meme couleur que le joueur entrain de jouer
         if(pe.getColor()==Couleur.blanc){
             if (ec.getCurrentUser()==0)
                 return move;
@@ -45,7 +53,7 @@ public class Echiquier_deplacement_Utils {
             if (ec.getCurrentUser()==1)
                 return move;
         }
-
+      //on vï¿½rifie que le mouvement est possible pour la piï¿½ce indï¿½pendemment du jeu
 		if(pe.DepIsValid(x, y)){
 			
 			//test de type de piï¿½ce
@@ -81,6 +89,14 @@ public class Echiquier_deplacement_Utils {
 		return move;
 	}
 	
+	/**
+	 * move a queen,bishop, or a rook
+	 * @param pe the piece you want to move
+	 * @param ec the chessboard you play on
+	 * @param x the X coordinate where you want to move the piece
+	 * @param y the Y coordinate where you want to move the piece
+	 * @return true if the piece has moved, false otherwise
+	 */
 	//mouvement pour reine, fou, tour
 	public static boolean MoveBasic(Piece pe, Echiquier ec, int x, int y){
 		boolean move = false;
@@ -116,7 +132,14 @@ public class Echiquier_deplacement_Utils {
 		return move;
 		
 	}
-	
+	/**
+	 * move a knight
+	 * @param pe the piece you want to move
+	 * @param ec the chessboard you play on
+	 * @param x the X coordinate where you want to move the piece
+	 * @param y the Y coordinate where you want to move the piece
+	 * @return true if the piece has moved, false otherwise
+	 */
 	//mouvement pour cavalier
 		public static boolean MoveCav(Piece pe, Echiquier ec, int x, int y){
 			boolean move = false;
@@ -151,7 +174,14 @@ public class Echiquier_deplacement_Utils {
 			
 			return move;
 	}
-	
+		/**
+		 * move a king
+		 * @param pe the piece you want to move
+		 * @param ec the chessboard you play on
+		 * @param x the X coordinate where you want to move the piece
+		 * @param y the Y coordinate where you want to move the piece
+		 * @return true if the piece has moved, false otherwise
+		 */
 	//mouvement pour roi
 	public static boolean MoveKing(Piece pe, Echiquier ec, int x, int y){
 		boolean move = false;
@@ -209,7 +239,14 @@ public class Echiquier_deplacement_Utils {
 		
 		return move;
 	}
-	
+	/**
+	 * move a pawn
+	 * @param pe the piece you want to move
+	 * @param ec the chessboard you play on
+	 * @param x the X coordinate where you want to move the piece
+	 * @param y the Y coordinate where you want to move the piece
+	 * @return true if the piece has moved, false otherwise
+	 */
 	//mouvement pour pion
 	public static boolean MovePion(Piece pe, Echiquier ec, int x, int y){
 		boolean move = false;
