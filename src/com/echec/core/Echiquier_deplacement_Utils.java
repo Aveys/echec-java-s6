@@ -44,6 +44,12 @@ public class Echiquier_deplacement_Utils {
 		//variable de retour
 		boolean move = false;
 		
+		//on vérifie que le mouvement ne soit pas du sur place
+		if(pe.getX()-x == 0 && pe.getY()-y==0){
+			
+			return move;
+		}
+		
 		//on vérifie que la pièce selecetionnée soit de la meme couleur que le joueur entrain de jouer
         if(pe.getColor()==Couleur.blanc){
             if (ec.getCurrentUser()==0)
