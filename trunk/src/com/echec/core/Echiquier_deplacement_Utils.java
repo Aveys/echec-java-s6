@@ -45,7 +45,7 @@ public class Echiquier_deplacement_Utils {
             if (ec.getCurrentUser()==1)
                 return move;
         }
-        
+
 		if(pe.DepIsValid(x, y)){
 			
 			//test de type de pi�ce

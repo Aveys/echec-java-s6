@@ -18,6 +18,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     private int yAdjustment;
     private int xPressed;
     private int yPressed;
+    private JMenuBar jm_bar
 
 
     public View(Controler cont){
