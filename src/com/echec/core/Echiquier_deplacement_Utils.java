@@ -1,7 +1,5 @@
 package com.echec.core;
 
-import java.util.ArrayList;
-
 /**
  * Created by arthurveys on 16/06/2014.
  */
@@ -38,36 +36,45 @@ public class Echiquier_deplacement_Utils {
 		
 		boolean move = false;
 		
-		//on vérifie que le mouvement est possible pour la pièce indépendemment du jeu
+		//on vï¿½rifie que le mouvement est possible pour la piï¿½ce indï¿½pendemment du jeu
+        if(pe.getColor()==Couleur.blanc){
+            if (ec.getCurrentUser()==0)
+                return move;
+        }
+        if(pe.getColor()==Couleur.noir){
+            if (ec.getCurrentUser()==1)
+                return move;
+        }
+        
 		if(pe.DepIsValid(x, y)){
 			
-			//test de type de pièce
+			//test de type de piï¿½ce
 			TypePiece Type_pe=pe.getType();
 			
 			
 			//1.
-			//si la pièce est une reine, ou un fou ou tour
+			//si la piï¿½ce est une reine, ou un fou ou tour
 			if(Type_pe == (TypePiece.fou) || Type_pe == (TypePiece.reine) || Type_pe==(TypePiece.tour)){
 				
 				move = MoveBasic(pe, ec, x, y);
 			}
 			//2.
-			//si la pièce est un cavalier
+			//si la piï¿½ce est un cavalier
 			else if(Type_pe == (TypePiece.cavalier)){
-				
-				MoveCav(pe, ec, x, y);
+
+                move = MoveCav(pe, ec, x, y);
 			}
 			//3.
-			//si la pièce est un roi
+			//si la piï¿½ce est un roi
 			else if(Type_pe == (TypePiece.roi)){
-				
-				MoveKing(pe, ec, x, y);
+
+                move = MoveKing(pe, ec, x, y);
 			}
 			//4.
-			//si la pièce est un pion
+			//si la piï¿½ce est un pion
 			else if(Type_pe == (TypePiece.pion)){
-				
-				MovePion(pe, ec, x, y);
+
+                move = MovePion(pe, ec, x, y);
 			}
 		}
 		
@@ -78,22 +85,22 @@ public class Echiquier_deplacement_Utils {
 	public static boolean MoveBasic(Piece pe, Echiquier ec, int x, int y){
 		boolean move = false;
 		
-		//vérification si la case libre
+		//vï¿½rification si la case libre
 		if(checkIsFree(ec, x, y)){
 			
-			//déplacement de la pièce
+			//dï¿½placement de la piï¿½ce
 			effectiveMovement(pe, x, y);
 			move = true;
 			
 		}else{
 			
-			//récupération de la piece sur la case cible
+			//rï¿½cupï¿½ration de la piece sur la case cible
 			Piece piece_cible = ec.getPiece(x, y);
 			
-			//si la couleur de la pièce cible est différente de la pièce qui bouge
+			//si la couleur de la piï¿½ce cible est diffï¿½rente de la piï¿½ce qui bouge
 			if(pe.getColor() != piece_cible.getColor()){
 				
-				//mouvement possible + déplacement de la pièce + kill de la pièce cible
+				//mouvement possible + dï¿½placement de la piï¿½ce + kill de la piï¿½ce cible
 				move = true;
 				if(piece_cible.getColor()==Couleur.blanc){
 					ec.getJeuBlanc().killPiece(piece_cible);
@@ -114,22 +121,22 @@ public class Echiquier_deplacement_Utils {
 		public static boolean MoveCav(Piece pe, Echiquier ec, int x, int y){
 			boolean move = false;
 			
-			//vérification si la case libre
+			//vï¿½rification si la case libre
 			if(checkIsFree(ec, x, y)){
 				
-				//déplacement de la pièce
+				//dï¿½placement de la piï¿½ce
 				effectiveMovement(pe, x, y);
 				move = true;
 				
 			}else{
 				
-				//récupération de la piece sur la case cible
+				//rï¿½cupï¿½ration de la piece sur la case cible
 				Piece piece_cible = ec.getPiece(x, y);
 				
-				//si la couleur de la pièce cible est différente de la pièce qui bouge
+				//si la couleur de la piï¿½ce cible est diffï¿½rente de la piï¿½ce qui bouge
 				if(pe.getColor() != piece_cible.getColor()){
 					
-					//mouvement possible + déplacement de la pièce + kill de la pièce cible
+					//mouvement possible + dï¿½placement de la piï¿½ce + kill de la piï¿½ce cible
 					move = true;
 					if(piece_cible.getColor()==Couleur.blanc){
 						ec.getJeuBlanc().killPiece(piece_cible);
@@ -153,7 +160,7 @@ public class Echiquier_deplacement_Utils {
 		boolean echec = false;
 		Jeu jeu_adverse;
 		
-		//vérifier si mise en echec
+		//vï¿½rifier si mise en echec
 		//on identifie le jeu adversaire
 		if(pe.getColor()==Couleur.noir){
 			jeu_adverse = ec.getJeuBlanc();
@@ -166,28 +173,28 @@ public class Echiquier_deplacement_Utils {
 		for(Piece p : jeu_adverse.lstpiece){
 			
 			if(Move(p, ec, x, y)){
-				//on met à jour la variable echec
+				//on met ï¿½ jour la variable echec
 				echec = true;
 			}
 		}
 		
 		if(!echec){
-			//vérification si la case libre
+			//vï¿½rification si la case libre
 			if(checkIsFree(ec, x, y)){
 				
-				//déplacement de la pièce
+				//dï¿½placement de la piï¿½ce
 				effectiveMovement(pe, x, y);
 				move = true;
 				
 			}else{
 				
-				//récupération de la piece sur la case cible
+				//rï¿½cupï¿½ration de la piece sur la case cible
 				Piece piece_cible = ec.getPiece(x, y);
 				
-				//si la couleur de la pièce cible est différente de la pièce qui bouge
+				//si la couleur de la piï¿½ce cible est diffï¿½rente de la piï¿½ce qui bouge
 				if(pe.getColor() != piece_cible.getColor()){
 					
-					//mouvement possible + déplacement de la pièce + kill de la pièce cible
+					//mouvement possible + dï¿½placement de la piï¿½ce + kill de la piï¿½ce cible
 					move = true;
 					if(piece_cible.getColor()==Couleur.blanc){
 						ec.getJeuBlanc().killPiece(piece_cible);
@@ -209,19 +216,19 @@ public class Echiquier_deplacement_Utils {
 			
 		Pion pi=(Pion) pe;
 		
-		//vérification si la case n'est pas libre
+		//vï¿½rification si la case n'est pas libre
 		if(!checkIsFree(ec, x, y)){
 			
-			//récupération de la piece sur la case cible
+			//rï¿½cupï¿½ration de la piece sur la case cible
 			Piece piece_cible = ec.getPiece(x, y);
 			
-			//si la couleur de la pièce cible est différente de la pièce qui bouge
+			//si la couleur de la piï¿½ce cible est diffï¿½rente de la piï¿½ce qui bouge
 			if(pi.getColor() != piece_cible.getColor()){
 			
-				//si c'est un déplacement en diagonale 
+				//si c'est un dï¿½placement en diagonale 
 				if((java.lang.Math.abs(y-pi.getY()) == 1) && (java.lang.Math.abs(x-pi.getX()) == 1)){
 					
-					//mouvement possible + déplacement de la pièce + kill de la pièce cible + incrémentation du mvt
+					//mouvement possible + dï¿½placement de la piï¿½ce + kill de la piï¿½ce cible + incrï¿½mentation du mvt
 					move = true;
 					if(piece_cible.getColor()==Couleur.blanc){
 						ec.getJeuBlanc().killPiece(piece_cible);
@@ -241,10 +248,10 @@ public class Echiquier_deplacement_Utils {
 			//si c'est le premier mouvement du pion
 			if(pi.getMoves()==0){
 				
-				//si le déplacement est tout droit
+				//si le dï¿½placement est tout droit
 				if(java.lang.Math.abs(x-pi.getX()) == 0){
 					
-					//on autorise le déplacement + move + set move à 1
+					//on autorise le dï¿½placement + move + set move ï¿½ 1
 					move = true;
 					effectiveMovement(pi, x, y);
 					pi.setMoves(1);
@@ -254,10 +261,10 @@ public class Echiquier_deplacement_Utils {
 			//si ce n'est pas le premier mouvement
 			else{
 				
-				//si le déplacement est d'1 case et tout droit
+				//si le dï¿½placement est d'1 case et tout droit
 				if((java.lang.Math.abs(y-pi.getY()) == 1)&&(java.lang.Math.abs(x-pi.getX()) == 0)){
 					
-					//on autorise le déplacement + move + set move à 1
+					//on autorise le dï¿½placement + move + set move ï¿½ 1
 					move = true;
 					effectiveMovement(pi, x, y);
 					pi.setMoves(1);

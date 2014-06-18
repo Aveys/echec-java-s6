@@ -1,7 +1,5 @@
 package com.echec.core;
 
-import java.util.ArrayList;
-
 /**
  * Created by arthurveys on 16/06/2014.
  */
@@ -94,15 +92,16 @@ public class Echiquier  {
 
     public boolean startPlay(int xsource,int ysource,int xdest,int ydest){
         afficherEchiquier();
+        System.out.println("Déplacement demandée : ("+xsource+","+ysource+") -> ("+xdest+","+ydest+")");
         boolean res;
         Piece src = getPiece(xsource,ysource);
         if (currentUser==0){
             res=jeuNoir.jouer(src,this,xdest,ydest);
-            currentUser++;
+            if(res) currentUser++;
         }
         else{
             res=jeuBlanc.jouer(src,this,xdest,ydest);
-            currentUser--;
+            if(res) currentUser--;
         }
         return res;
 
