@@ -24,5 +24,10 @@ public class Controler {
     private int getCoordinates(int x){
         return (int) Math.floor((600-x)/(600/8));
     }
+
+    public void reset() {
+        ec=new Echiquier();
+        v.refreshviewPlateau();
+    }
 }
 

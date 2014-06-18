@@ -3,12 +3,11 @@ package com.echec.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 public class View extends JFrame implements MouseListener, MouseMotionListener {
 
+    private final Dimension boardSize;
     String[][] plateau;
     Controler control;
     private JLayeredPane layeredPane;
@@ -18,12 +17,22 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     private int yAdjustment;
     private int xPressed;
     private int yPressed;
-    private JMenuBar jm_bar
+    private JMenuBar jm_bar;
+    private JMenu jm_file;
+    private JMenuItem jmi_new;
 
-
+    /**
+     * Build a view
+     * @param cont the controller
+     */
     public View(Controler cont){
+        jm_bar=new JMenuBar();
+        jm_file = new JMenu("Fichier");
+        jmi_new = new JMenuItem("Nouvelle partie");
+
+
         this.control=cont;
-        Dimension boardSize = new Dimension(600, 600);
+        boardSize = new Dimension(600, 600);
         plateau = new String[8][8];
 
         //  Use a Layered Pane for this this application
@@ -32,6 +41,17 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         layeredPane.setPreferredSize(boardSize);
         layeredPane.addMouseListener(this);
         layeredPane.addMouseMotionListener(this);
+
+        jmi_new.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.reset();
+            }
+        });
+
+        jm_bar.add(jm_file);
+        jm_file.add(jmi_new);
+        this.setJMenuBar(jm_bar);
 
 
         //Add a chess board to the Layechar plateaured Pane
@@ -42,7 +62,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         chessBoard.setPreferredSize( boardSize );
         chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
 
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < 64; i++) {//build the grid
             JPanel square = new JPanel( new BorderLayout() );
             chessBoard.add( square );
 
@@ -52,7 +72,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
             else
                 square.setBackground( i % 2 == 0 ? Color.white : Color.blue );
         }
-        refreshviewPlateau();
+
+        refreshviewPlateau();//add the piece
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
@@ -61,8 +82,31 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         setVisible(true);
 
     }
+
+    /**
+     * Refresh the piece position
+     */
     public void refreshviewPlateau(){
-        plateau=control.getNewPlateau();
+        layeredPane.setVisible(false);
+        layeredPane.removeAll();
+        chessBoard = new JPanel();
+        layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
+        chessBoard.setLayout( new GridLayout(8, 8) );
+        chessBoard.setPreferredSize( boardSize );
+        chessBoard.setBounds(0, 0, boardSize.width, boardSize.height);
+
+        for (int i = 0; i < 64; i++) {//build the grid
+            JPanel square = new JPanel( new BorderLayout() );
+            chessBoard.add( square );
+
+            int row = (i / 8) % 2;
+            if (row == 0)
+                square.setBackground( i % 2 == 0 ? Color.blue : Color.white );
+            else
+                square.setBackground( i % 2 == 0 ? Color.white : Color.blue );
+        }
+
+        plateau=control.getNewPlateau();//récupére les pieces de l'échiquier
         JPanel panel;
         //Add a few pieces to the board
         String tmp;
@@ -70,10 +114,10 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         for (int i = 7; i >= 0; i--) {
             for (int j = 7; j >= 0; j--) {
                 tmp=plateau[j][i];
-                if(tmp!="") {
+                if(!tmp.equals("")) {
                     try {
-                        panel = (JPanel) chessBoard.getComponent(count);
-                        panel.add(getImage(tmp));
+                        panel = (JPanel) chessBoard.getComponent(count);//place les pieces dans le JPanel
+                        panel.add(getImage(tmp));//récupére l'image associée
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -81,6 +125,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
                 count++;
             }
         }
+        layeredPane.setVisible(true);
     }
 
     public void mousePressed(MouseEvent e){
@@ -93,7 +138,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         Point parentLocation = c.getParent().getLocation();
         xAdjustment = parentLocation.x - e.getX();
         yAdjustment = parentLocation.y - e.getY();
-        xPressed=e.getX();
+        xPressed=e.getX();//sauvegardes du x et y du lors du clic
         yPressed=e.getY();
         chessPiece = (JLabel)c;
         chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
@@ -105,13 +150,13 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 
     public void mouseDragged(MouseEvent me) {
         if (chessPiece == null) return;
-        chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
+        chessPiece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);// mouvement de la piece lors du drag
     }
 
     //Drop the chess piece back onto the chess board
 
     public void mouseReleased(MouseEvent e) {
-        if(e.getX()>600 || e.getX()<0||e.getY()>600 || e.getY()<0){
+        if(e.getX()>600 || e.getX()<0||e.getY()>600 || e.getY()<0){//remise en place si la piece est sortie de l'échiquier
             if (chessPiece == null) return;
 
             chessPiece.setVisible(false);
@@ -129,7 +174,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
             chessPiece.setVisible(true);
         }
         else {
-            if (control.move(xPressed,yPressed,e.getX(),e.getY())) {
+            if (control.move(xPressed,yPressed,e.getX(),e.getY())) {//Vérifie la validité du déplacement
                 if (chessPiece == null) return;
 
                 chessPiece.setVisible(false);
@@ -146,7 +191,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 
                 chessPiece.setVisible(true);
             }
-            else{
+            else{// si le déplacement est non valide -> La piece retourne à ça place
                 if (chessPiece == null) return;
 
                 chessPiece.setVisible(false);
@@ -177,6 +222,12 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    /**
+     * Get image for a piece
+     * @param s The piece
+     * @return ImagaIcon of the piece
+     */
     public JLabel getImage(String s) {
         if (s == "")
             return null;
