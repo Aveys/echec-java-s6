@@ -1,25 +1,26 @@
 package com.echec.ui;
 
-import com.echec.core.Couleur;
-import com.echec.core.Echiquier;
-import com.echec.core.Piece;
-import com.echec.core.TypePiece;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Chessgame extends JFrame implements MouseListener, MouseMotionListener {
-    JLayeredPane layeredPane;
-    JPanel chessBoard;
-    JLabel chessPiece;
-    int xAdjustment;
-    int yAdjustment;
-    Echiquier ec;
+public class View extends JFrame implements MouseListener, MouseMotionListener {
 
-    public Chessgame(){
+    String[][] plateau;
+    Controler control;
+    private JLayeredPane layeredPane;
+    private JPanel chessBoard;
+    private JLabel chessPiece;
+    private int xAdjustment;
+    private int yAdjustment;
+    private int xPressed;
+    private int yPressed;
+
+
+    public View(Controler cont){
+        this.control=cont;
         Dimension boardSize = new Dimension(600, 600);
-        ec = new Echiquier();
+        plateau = new String[8][8];
 
         //  Use a Layered Pane for this this application
         layeredPane = new JLayeredPane();
@@ -28,7 +29,8 @@ public class Chessgame extends JFrame implements MouseListener, MouseMotionListe
         layeredPane.addMouseListener(this);
         layeredPane.addMouseMotionListener(this);
 
-        //Add a chess board to the Layered Pane
+
+        //Add a chess board to the Layechar plateaured Pane
 
         chessBoard = new JPanel();
         layeredPane.add(chessBoard, JLayeredPane.DEFAULT_LAYER);
@@ -46,17 +48,32 @@ public class Chessgame extends JFrame implements MouseListener, MouseMotionListe
             else
                 square.setBackground( i % 2 == 0 ? Color.white : Color.blue );
         }
+        refreshviewPlateau();
 
-        //Add a few pieces to the board
-        Piece tmp;
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pack();
+        setResizable(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+
+    }
+    public void refreshviewPlateau(){
+        plateau=control.getNewPlateau();
         JPanel panel;
+        //Add a few pieces to the board
+        String tmp;
         int count =0;
         for (int i = 7; i >= 0; i--) {
             for (int j = 7; j >= 0; j--) {
-                tmp=ec.getPiece(j,i);
-                if(tmp!=null) {
-                    panel = (JPanel) chessBoard.getComponent(count);
-                    panel.add(getImage(tmp));
+                tmp=plateau[j][i];
+                if(tmp!="") {
+                    try {
+                        panel = (JPanel) chessBoard.getComponent(count);
+                        panel.add(getImage(tmp));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 count++;
             }
@@ -73,6 +90,8 @@ public class Chessgame extends JFrame implements MouseListener, MouseMotionListe
         Point parentLocation = c.getParent().getLocation();
         xAdjustment = parentLocation.x - e.getX();
         yAdjustment = parentLocation.y - e.getY();
+        xPressed=(600-e.getX())/(600/8);
+        yPressed=(600-e.getX())/(600/8);
         chessPiece = (JLabel)c;
         chessPiece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
         chessPiece.setSize(chessPiece.getWidth(), chessPiece.getHeight());
@@ -118,64 +137,34 @@ public class Chessgame extends JFrame implements MouseListener, MouseMotionListe
     public void mouseExited(MouseEvent e) {
 
     }
-    public JLabel getImage(Piece p){
-        if(p.getType()== TypePiece.cavalier){
-            if(p.getColor()== Couleur.blanc){
-                return new JLabel(new ImageIcon("resources/cavalierBlancS.png"));
-            }
-            else{
-                return new JLabel(new ImageIcon("resources/cavalierNoirS.png"));
-            }
-        }
-        else if(p.getType()==TypePiece.fou){
-            if(p.getColor()==Couleur.blanc){
-                return new JLabel(new ImageIcon("resources/fouBlancS.png"));
-            }
-            else{
-                return new JLabel(new ImageIcon("resources/fouNoirS.png"));
-            }
-        }
-        else if(p.getType()==TypePiece.pion){
-            if(p.getColor()==Couleur.blanc){
-                return new JLabel(new ImageIcon("resources/pionBlancS.png"));
-            }
-            else{
-                return new JLabel(new ImageIcon("resources/pionNoirS.png"));
-            }
-        }
-        else if(p.getType()==TypePiece.tour){
-            if(p.getColor()==Couleur.blanc){
-                return new JLabel(new ImageIcon("resources/tourBlancS.png"));
-            }
-            else{
-                return new JLabel(new ImageIcon("resources/tourNoireS.png"));
-            }
-        }
-        else if(p.getType()==TypePiece.roi){
-            if(p.getColor()==Couleur.blanc){
-                return new JLabel(new ImageIcon("resources/roiBlancS.png"));
-            }
-            else{
-                return new JLabel(new ImageIcon("resources/roiNoirS.png"));
-            }
-        }
-        else if(p.getType()==TypePiece.reine){
-            if(p.getColor()==Couleur.blanc){
-                return new JLabel(new ImageIcon("resources/reineBlancS.png"));
-            }
-            else{
-                return new JLabel(new ImageIcon("resources/reineNoireS.png"));
-            }
-        }
+    public JLabel getImage(String s) {
+        if (s == "")
+            return null;
+        if (s.matches("c[0-8]"))
+            return new JLabel(new ImageIcon("resources/cavalierBlancS.png"));
+        else if (s.matches("C[0-8]"))
+            return new JLabel(new ImageIcon("resources/cavalierNoirS.png"));
+        else if (s.matches("f[0-8]"))
+            return new JLabel(new ImageIcon("resources/fouBlancS.png"));
+        else if (s.matches("F[0-8]"))
+            return new JLabel(new ImageIcon("resources/fouNoirS.png"));
+        else if (s.matches("p[0-8]"))
+            return new JLabel(new ImageIcon("resources/pionBlancS.png"));
+        else if (s.matches("P[0-8]"))
+            return new JLabel(new ImageIcon("resources/pionNoirS.png"));
+        else if (s.matches("t[0-8]"))
+            return new JLabel(new ImageIcon("resources/tourBlancS.png"));
+        else if (s.matches("T[0-8]"))
+            return new JLabel(new ImageIcon("resources/tourNoireS.png"));
+        else if (s.matches("ro"))
+            return new JLabel(new ImageIcon("resources/roiBlancS.png"));
+        else if (s.matches("RO"))
+            return new JLabel(new ImageIcon("resources/roiNoirS.png"));
+        else if (s.matches("re"))
+            return new JLabel(new ImageIcon("resources/reineBlancS.png"));
+        else if (s.matches("RE"))
+            return new JLabel(new ImageIcon("resources/reineNoireS.png"));
         else
             return null;
-    }
-    public static void main(String[] args) {
-        JFrame frame = new Chessgame();
-        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE );
-        frame.pack();
-        frame.setResizable(true);
-        frame.setLocationRelativeTo( null );
-        frame.setVisible(true);
     }
 }

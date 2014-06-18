@@ -1,12 +1,11 @@
 package com.echec.core;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Created by arthurveys on 16/06/2014.
+ * Projet java
  */
 public class Jeu {
 
@@ -24,16 +23,24 @@ public class Jeu {
         this.color=c;
         this.init();
     }
-    public boolean jouer(Echiquier ec) {
+    public boolean jouer(Piece source,Echiquier ec,int xdest,int ydest){
         boolean execution=false;
-        String inputValue = "";
-        String valueTofind = ",";
+        if (Echiquier_deplacement_Utils.Move(source, ec, xdest, ydest)) {
+            System.out.println("Mouvement validé !");
+            execution = true;
+        } else
+            System.out.println("Deplacement impossible");
+        return execution;
+    }
+    public boolean jouerConsole(Echiquier ec) {
+        boolean execution=false;
+        String inputValue;
         System.out.println("C'est au tour du joueur "+color);
         Piece source;
         int xdest;
         int ydest;
 
-        while(execution==false){
+        while(!execution){
             boolean exec_source=false;
             do{
                 inputValue="";
@@ -62,12 +69,12 @@ public class Jeu {
                     else
                         System.out.println("Cette piece n'existe pas");
                 }
-            }while(exec_source==false);
+            }while(!exec_source);
             System.out.println("Piece séléctionnée :"+source);
             boolean exec_dest=false;
             do {
                 inputValue="";
-                while (inputValue != "quit" && !checkValue(inputValue)) {
+                while (!inputValue.equals("quit") && !checkValue(inputValue)) {
                     //affichage d'un curseur
                     System.out.print("Destination>");
                     //Création d'un flux de lecteur sur l'entrée standard System.in
@@ -91,7 +98,7 @@ public class Jeu {
                     else
                         System.out.println("coordonnées invalides");
                 }
-            }while(exec_dest==false);
+            }while(!exec_dest);
             if (Echiquier_deplacement_Utils.Move(source, ec, xdest, ydest)) {
                 System.out.println("Mouvement validé !");
                 execution = true;
@@ -213,7 +220,7 @@ public class Jeu {
      * @return true if everything worked
      */
     public boolean killPiece(int x, int y){
-        return lstpiece.remove(getPiece(x,y));
+        return lstpiece.remove(getPiece(x, y));
     }
 
 }

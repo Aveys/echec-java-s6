@@ -1,5 +1,7 @@
 package com.echec.core;
 
+import java.util.ArrayList;
+
 /**
  * Created by arthurveys on 16/06/2014.
  */
@@ -69,19 +71,41 @@ public class Echiquier  {
         }
         System.out.print("\n");
     }
+    public String[][] generateChessTab(){
+        Piece tmp;
+        String[][] res = new String[8][8];
+        afficherEchiquier();
 
-    public void startGame(){
-        boolean res=true;
-        while(res==true){
-            afficherEchiquier();
-            if (currentUser==0){
-                res=jeuNoir.jouer(this);
-                currentUser++;
-            }
-            else{
-                res=jeuBlanc.jouer(this);
-                currentUser--;
+        for (int i = 7; i >= 0; i--) {
+            for (int j = 7; j >= 0; j--) {
+                tmp = getPiece(j, i);
+                if (tmp == null)
+                    res[j][i]="";
+                else {
+                    if (tmp.getColor()==Couleur.blanc)
+                        res[j][i]=(tmp.name.toLowerCase());//blanc en minuscule
+                    else
+                        res[j][i]=(tmp.name.toUpperCase());//noir en majuscule
+                }
             }
         }
+        return res;
     }
+
+    public boolean startPlay(int xsource,int ysource,int xdest,int ydest){
+        afficherEchiquier();
+        boolean res;
+        Piece src = getPiece(xsource,ysource);
+        if (currentUser==0){
+            res=jeuNoir.jouer(src,this,xdest,ydest);
+            currentUser++;
+        }
+        else{
+            res=jeuBlanc.jouer(src,this,xdest,ydest);
+            currentUser--;
+        }
+        return res;
+
+    }
+
 }
